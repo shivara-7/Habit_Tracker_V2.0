@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HabitHero</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-logo">
+            <img src="/static/images/logo.jpg" alt="Logo">
+            HabitHero
+        </div>
+        <div class="navbar-icon">🔍</div>
+        <input type="text" class="search-box" placeholder="Search for habits">
+        <div class="navbar-icon add-habit-icon">➕</div>
+        <button class="add-button">Add Habits</button>
+        <ul id="habitList"></ul>
+        <button class="login-button">Login</button>
+    </div>
+
+    <div  id="main-page" class="main-content">
+        <div class="left-side">
+            Build Better Habits, Build a Better You!
+        </div>
+        <div class="right-side">
+            <img src="/static/images/habits.jpg" alt="motivation image">
+        </div>
+
+        <a href="/calendar">View Calendar</a>
+
+        <div>
+            <h2>Add New Habit</h2>
+            <form id="addHabitForm">
+                <input type="text" id="habitName" placeholder="Habit Name" required>
+                <input type="text" id="habitGoal" placeholder="Goal (optional)">
+                <button type="submit">Add Habit</button>
+            </form>
+        </div>
+
+        <div>
+            <h2>Mark Habit as Done</h2>
+            <form id="markDoneForm">
+                <input type="number" id="habitId" placeholder="Habit ID" required>
+                <input type="date" id="date" required>
+                <button type="submit">Mark Done</button>
+            </form>
+        </div>
+
+        <div id="habitsList">
+            <h2>Your Habits</h2>
+            <ul></ul>
+        </div>
+
+        <script src="/static/js/calendar.js"></script>
+    </div>
+</body>
+</html>

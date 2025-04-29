@@ -1,0 +1,37 @@
+#calendarContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#calendarContainer th, #calendarContainer td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+#calendarContainer th {
+    background-color: #f0f0f0;
+}
+
+#calendarContainer td {
+    min-height: 80px; /* Adjust as needed */
+    vertical-align: top;
+    padding: 10px;
+}
+
+.calendar {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+.calendar th, .calendar td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+.calendar th {
+    background-color: #f0f0f0;
+}
+.mon { color: red; }
+.sun { color: red; }

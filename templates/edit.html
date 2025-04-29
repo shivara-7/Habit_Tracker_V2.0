@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Habit ✏️</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            color: #4CAF50;
+            font-size: 36px;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        input, button {
+            padding: 12px;
+            width: 300px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px auto;
+            width: 60%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: left;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Habit ✏️</h1>
+
+    <form action="{{ url_for('update_habit', habit_id=habit.id) }}" method="POST">
+        <input type="text" name="name" value="{{ habit.name }}" required>
+        <input type="text" name="description" value="{{ habit.description }}" required>
+        <button type="submit">Update ✅</button>
+    </form>
+
+    <br><a href="/">⬅️ Back to Habit List</a>
+</body>
+</html>

@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🌟 My Habit Tracker 🌟</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css">
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+
+    <style>
+        .habit-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .habit-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 50%;
+            margin: 15px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .completed {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            padding: 30px;
+        }
+
+        form input {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌟 My Habit Tracker 🌟</h1>
+    
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Habit Name" required>
+        <input type="text" name="description" placeholder="Description" required>
+        <button type="submit">Add Habit ✅</button>
+    </form>
+
+    <h2>My Habits List 📋</h2>
+
+    <div class="habit-list">
+        {% for habit in habits %}
+        <div class="habit-card {% if habit.completed %}completed{% endif %}">
+            <h3>{{ habit.name }} {% if habit.completed %}✅{% endif %}</h3>
+            <p>{{ habit.description }}</p>
+            {% if habit.created_at %}
+            <p><b>Added on:</b> {{ habit.created_at.strftime("%Y-%m-%d %H:%M") }}</p>
+            {% endif %}
+
+            <form action="/complete/{{ habit.id }}" method="POST" style="display:inline;">
+                <button class="btn" type="submit">
+                    {% if habit.completed %}Mark Incomplete{% else %}Mark Complete{% endif %}
+                </button>
+            </form>
+
+            <form action="/edit/{{ habit.id }}" method="GET" style="display:inline;">
+                <button class="btn" type="submit">Edit ✍️</button>
+            </form>
+
+            <form action="/delete/{{ habit.id }}" method="POST" style="display:inline;">
+                <button class="btn" type="submit">Delete ❌</button>
+            </form>
+        </div>
+        {% else %}
+        <p>No habits found! Add a habit to get started 🚀</p>
+        {% endfor %}
+    </div>
+  
+    <h4>📅 Habit Calendar</h4>
+        <div id='calendar'></div>
+    <!-- calender -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          var calendarEl = document.getElementById('calendar');
+      
+          // Pull habits from Flask
+          var habitEvents = JSON.parse('{{ habits | tojson | safe }}');
+      
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            height: 500,
+            headerToolbar: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,listWeek'
+            },
+            events: habitEvents,  // Inject your dynamic data here
+            eventColor: '#4CAF50',
+            eventTextColor: '#fff'
+            });
+            calendar.render();
+        });
+    </script>
+       
+
+      
+</body>
+</html>
